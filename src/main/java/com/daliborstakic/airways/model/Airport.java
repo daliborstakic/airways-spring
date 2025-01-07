@@ -39,22 +39,32 @@ public class Airport implements Serializable {
 
 	private String country;
 
+	@Column(columnDefinition = "geometry(Point, 4326)")
 	@JsonSerialize(using = PointSerializer.class)
 	@JsonDeserialize(using = PointDeserializer.class)
-	@Column(columnDefinition = "geometry(Point,4326")
 	private Point location;
 
 	private String name;
 
 	private String type;
 
+	// bi-directional many-to-one association to Route
+	@OneToMany(mappedBy = "airport1")
 	@JsonIgnore
-	@OneToMany(mappedBy = "destination")
 	private List<Route> routes1;
 
+	// bi-directional many-to-one association to Route
 	@JsonIgnore
-	@OneToMany(mappedBy = "source")
+	@OneToMany(mappedBy = "airport2")
 	private List<Route> routes2;
+
+	// bi-directional many-to-one association to Photo
+	@OneToMany(mappedBy = "airport")
+	private List<Photo> photos;
+
+	// bi-directional many-to-one association to Userreview
+	@OneToMany(mappedBy = "airport")
+	private List<UserReview> userreviews;
 
 	public Airport() {
 	}
@@ -149,6 +159,50 @@ public class Airport implements Serializable {
 		routes2.setAirport2(null);
 
 		return routes2;
+	}
+
+	public List<Photo> getPhotos() {
+		return this.photos;
+	}
+
+	public void setPhotos(List<Photo> photos) {
+		this.photos = photos;
+	}
+
+	public Photo addPhoto(Photo photo) {
+		getPhotos().add(photo);
+		photo.setAirport(this);
+
+		return photo;
+	}
+
+	public Photo removePhoto(Photo photo) {
+		getPhotos().remove(photo);
+		photo.setAirport(null);
+
+		return photo;
+	}
+
+	public List<UserReview> getUserreviews() {
+		return this.userreviews;
+	}
+
+	public void setUserreviews(List<UserReview> userreviews) {
+		this.userreviews = userreviews;
+	}
+
+	public UserReview addUserreview(UserReview userreview) {
+		getUserreviews().add(userreview);
+		userreview.setAirport(this);
+
+		return userreview;
+	}
+
+	public UserReview removeUserreview(UserReview userreview) {
+		getUserreviews().remove(userreview);
+		userreview.setAirport(null);
+
+		return userreview;
 	}
 
 }

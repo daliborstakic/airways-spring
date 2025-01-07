@@ -36,8 +36,8 @@ public class Airline implements Serializable {
 	private String name;
 
 	// bi-directional many-to-one association to Route
-	@OneToMany(mappedBy = "airline")
 	@JsonIgnore
+	@OneToMany(mappedBy = "airline")
 	private List<Route> routes;
 
 	public Airline() {

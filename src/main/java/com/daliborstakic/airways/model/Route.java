@@ -34,7 +34,7 @@ public class Route implements Serializable {
 	@Column(name = "route_id")
 	private Integer routeId;
 
-	@Column(columnDefinition = "geometry(LineString, 4326")
+	@Column(columnDefinition = "geometry(LineString, 4326)")
 	@JsonSerialize(using = LineStringSerializer.class)
 	@JsonDeserialize(using = LineStringDeserializer.class)
 	private LineString route;
@@ -49,12 +49,12 @@ public class Route implements Serializable {
 	// bi-directional many-to-one association to Airport
 	@ManyToOne
 	@JoinColumn(name = "destination")
-	private Airport destination;
+	private Airport airport1;
 
 	// bi-directional many-to-one association to Airport
 	@ManyToOne
 	@JoinColumn(name = "source")
-	private Airport source;
+	private Airport airport2;
 
 	public Route() {
 	}
@@ -92,19 +92,19 @@ public class Route implements Serializable {
 	}
 
 	public Airport getAirport1() {
-		return this.destination;
+		return this.airport1;
 	}
 
 	public void setAirport1(Airport airport1) {
-		this.destination = airport1;
+		this.airport1 = airport1;
 	}
 
 	public Airport getAirport2() {
-		return this.source;
+		return this.airport2;
 	}
 
 	public void setAirport2(Airport airport2) {
-		this.source = airport2;
+		this.airport2 = airport2;
 	}
 
 }
