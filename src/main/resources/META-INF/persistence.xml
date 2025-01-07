@@ -9,5 +9,6 @@
 		<class>com.daliborstakic.airways.model.Airport</class>
 		<class>com.daliborstakic.airways.model.Country</class>
 		<class>com.daliborstakic.airways.model.Route</class>
+		<shared-cache-mode>NONE</shared-cache-mode>
 	</persistence-unit>
 </persistence>

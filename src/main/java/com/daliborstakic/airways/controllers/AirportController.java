@@ -23,7 +23,7 @@ public class AirportController {
 	}
 
 	@GetMapping("/{id}")
-	public Airport findAirport(@PathVariable("id") Integer id) {
+	public Airport findAirport(@PathVariable Integer id) {
 		System.out.println("Jovan");
 		return airRepo.getReferenceById(id);
 	}

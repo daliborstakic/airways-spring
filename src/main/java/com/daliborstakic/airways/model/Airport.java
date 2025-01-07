@@ -64,7 +64,7 @@ public class Airport implements Serializable {
 
 	// bi-directional many-to-one association to Userreview
 	@OneToMany(mappedBy = "airport")
-	private List<UserReview> userreviews;
+	private List<Userreview> userreviews;
 
 	public Airport() {
 	}
@@ -183,22 +183,22 @@ public class Airport implements Serializable {
 		return photo;
 	}
 
-	public List<UserReview> getUserreviews() {
+	public List<Userreview> getUserreviews() {
 		return this.userreviews;
 	}
 
-	public void setUserreviews(List<UserReview> userreviews) {
+	public void setUserreviews(List<Userreview> userreviews) {
 		this.userreviews = userreviews;
 	}
 
-	public UserReview addUserreview(UserReview userreview) {
+	public Userreview addUserreview(Userreview userreview) {
 		getUserreviews().add(userreview);
 		userreview.setAirport(this);
 
 		return userreview;
 	}
 
-	public UserReview removeUserreview(UserReview userreview) {
+	public Userreview removeUserreview(Userreview userreview) {
 		getUserreviews().remove(userreview);
 		userreview.setAirport(null);
 

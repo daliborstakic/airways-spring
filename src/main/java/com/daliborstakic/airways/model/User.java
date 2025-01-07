@@ -2,7 +2,11 @@ package com.daliborstakic.airways.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,7 +26,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "users")
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -50,7 +54,7 @@ public class User implements Serializable {
 	// bi-directional many-to-one association to Userreview
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
-	private List<UserReview> userreviews;
+	private List<Userreview> userreviews;
 
 	public User() {
 	}
@@ -125,26 +129,56 @@ public class User implements Serializable {
 		return photo;
 	}
 
-	public List<UserReview> getUserreviews() {
+	public List<Userreview> getUserreviews() {
 		return this.userreviews;
 	}
 
-	public void setUserreviews(List<UserReview> userreviews) {
+	public void setUserreviews(List<Userreview> userreviews) {
 		this.userreviews = userreviews;
 	}
 
-	public UserReview addUserreview(UserReview userreview) {
+	public Userreview addUserreview(Userreview userreview) {
 		getUserreviews().add(userreview);
 		userreview.setUser(this);
 
 		return userreview;
 	}
 
-	public UserReview removeUserreview(UserReview userreview) {
+	public Userreview removeUserreview(Userreview userreview) {
 		getUserreviews().remove(userreview);
 		userreview.setUser(null);
 
 		return userreview;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of();
+	}
+
+	@Override
+	public String getPassword() {
+		return passwordHash;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 }
