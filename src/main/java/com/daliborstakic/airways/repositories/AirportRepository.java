@@ -1,4 +1,4 @@
-package com.dalibostakic.airways.repositories;
+package com.daliborstakic.airways.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

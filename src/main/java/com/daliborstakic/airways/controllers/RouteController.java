@@ -1,4 +1,4 @@
-package com.dalibostakic.airways.controllers;
+package com.daliborstakic.airways.controllers;
 
 import java.util.List;
 
@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.daliborstakic.airways.model.Airline;
-import com.dalibostakic.airways.repositories.AirlineRepository;
+import com.daliborstakic.airways.model.Route;
+import com.daliborstakic.airways.repositories.RouteRepository;
 
 @RestController
-@RequestMapping("/airlines")
-public class AirlineController {
+@RequestMapping("/routes")
+public class RouteController {
 	@Autowired
-	private AirlineRepository airlineRepo;
+	private RouteRepository routeRepo;
 
 	@GetMapping("/all")
-	public List<Airline> allAirlines() {
-		return airlineRepo.findAll();
+	public List<Route> getRoutes() {
+		return routeRepo.findAll();
 	}
 }

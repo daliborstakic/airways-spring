@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 import org.locationtech.jts.geom.LineString;
 
+import com.daliborstakic.airways.util.LineStringDeserializer;
+import com.daliborstakic.airways.util.LineStringSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +34,9 @@ public class Route implements Serializable {
 	@Column(name = "route_id")
 	private Integer routeId;
 
-	@Column(columnDefinition = "geometry(LineString,4326)")
+	@Column(columnDefinition = "geometry(LineString, 4326")
+	@JsonSerialize(using = LineStringSerializer.class)
+	@JsonDeserialize(using = LineStringDeserializer.class)
 	private LineString route;
 
 	private Integer stops;
@@ -42,12 +49,12 @@ public class Route implements Serializable {
 	// bi-directional many-to-one association to Airport
 	@ManyToOne
 	@JoinColumn(name = "destination")
-	private Airport airport1;
+	private Airport destination;
 
 	// bi-directional many-to-one association to Airport
 	@ManyToOne
 	@JoinColumn(name = "source")
-	private Airport airport2;
+	private Airport source;
 
 	public Route() {
 	}
@@ -85,19 +92,19 @@ public class Route implements Serializable {
 	}
 
 	public Airport getAirport1() {
-		return this.airport1;
+		return this.destination;
 	}
 
 	public void setAirport1(Airport airport1) {
-		this.airport1 = airport1;
+		this.destination = airport1;
 	}
 
 	public Airport getAirport2() {
-		return this.airport2;
+		return this.source;
 	}
 
 	public void setAirport2(Airport airport2) {
-		this.airport2 = airport2;
+		this.source = airport2;
 	}
 
 }

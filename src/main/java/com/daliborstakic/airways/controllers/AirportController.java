@@ -1,4 +1,4 @@
-package com.dalibostakic.airways.controllers;
+package com.daliborstakic.airways.controllers;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daliborstakic.airways.model.Airport;
-import com.dalibostakic.airways.repositories.AirportRepository;
+import com.daliborstakic.airways.repositories.AirportRepository;
 
 @RestController
 @RequestMapping("/airports")

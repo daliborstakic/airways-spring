@@ -18,7 +18,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;;
+import jakarta.persistence.Table;
 
 /**
  * The persistent class for the airports database table.
@@ -39,23 +39,21 @@ public class Airport implements Serializable {
 
 	private String country;
 
-	@Column(columnDefinition = "geometry(Point,4326)")
 	@JsonSerialize(using = PointSerializer.class)
 	@JsonDeserialize(using = PointDeserializer.class)
+	@Column(columnDefinition = "geometry(Point,4326")
 	private Point location;
 
 	private String name;
 
 	private String type;
 
-	// bi-directional many-to-one association to Route
 	@JsonIgnore
-	@OneToMany(mappedBy = "airport1")
+	@OneToMany(mappedBy = "destination")
 	private List<Route> routes1;
 
-	// bi-directional many-to-one association to Route
 	@JsonIgnore
-	@OneToMany(mappedBy = "airport2")
+	@OneToMany(mappedBy = "source")
 	private List<Route> routes2;
 
 	public Airport() {
