@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,11 +19,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Email;
 
-/**
- * The persistent class for the users database table.
- * 
- */
 @Entity
 @Table(name = "users")
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
@@ -33,15 +33,20 @@ public class User implements Serializable, UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "created_at")
+	@Basic(optional = false)
+	@Column(name = "created_at", insertable = false, updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Timestamp createdAt;
 
+	@Email
 	private String email;
 
 	@Column(name = "password_hash")
 	private String passwordHash;
 
-	@Column(name = "updated_at")
+	@Basic(optional = false)
+	@Column(name = "updated_at", insertable = false, updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Timestamp updatedAt;
 
 	private String username;
