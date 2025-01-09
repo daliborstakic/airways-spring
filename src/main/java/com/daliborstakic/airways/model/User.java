@@ -22,6 +22,9 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -38,7 +41,9 @@ public class User implements Serializable, UserDetails {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Timestamp createdAt;
 
-	@Email
+	@NotNull(message = "Email cannot be null!")
+	@NotEmpty(message = "Email cannot be empty!")
+	@Email(message = "Email must be in a valid email format!")
 	private String email;
 
 	@Column(name = "password_hash")
@@ -49,6 +54,9 @@ public class User implements Serializable, UserDetails {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Timestamp updatedAt;
 
+	@NotNull(message = "Username cannot be null!")
+	@NotEmpty(message = "Username cannot be empty!")
+	@Size(min = 6, max = 20)
 	private String username;
 
 	// bi-directional many-to-one association to Photo
