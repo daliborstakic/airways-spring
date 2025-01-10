@@ -17,9 +17,9 @@ import com.daliborstakic.airways.responses.ErrorResponse;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	@ExceptionHandler(value = PSQLException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
 	public @ResponseBody ErrorResponse handleException(PSQLException ex) {
-		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+		return new ErrorResponse(HttpStatus.NOT_ACCEPTABLE.value(), ex.getLocalizedMessage());
 	}
 
 	@ExceptionHandler(value = MethodArgumentNotValidException.class)
@@ -30,8 +30,8 @@ public class GlobalExceptionHandler {
 	}
 
 	@ExceptionHandler(value = BadCredentialsException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus(HttpStatus.CONFLICT)
 	public @ResponseBody ErrorResponse handleException(BadCredentialsException ex) {
-		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+		return new ErrorResponse(HttpStatus.CONFLICT.value(), ex.getMessage());
 	}
 }
